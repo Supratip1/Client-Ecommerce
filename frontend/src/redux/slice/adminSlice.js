@@ -1,15 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-// Use localhost for local development, Vercel URL for production
-const API_URL = import.meta.env.DEV 
-  ? 'http://localhost:3000' 
-  : (import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000');
+import { API_BASE_URL } from "../../config/api";
 
 //fetch all the users
 export const fetchUsers = createAsyncThunk("admin/fetchUsers", async () => {
   const response = await axios.get(
-    `${API_URL}/api/admin/users`,
+    `${API_BASE_URL}/api/admin/users`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("userToken")}`,
@@ -25,7 +21,7 @@ export const addUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_URL}/api/admin/users`,
+        `${API_BASE_URL}/api/admin/users`,
         userData,
         {
           headers: {
@@ -50,7 +46,7 @@ export const updateUser = createAsyncThunk(
   "admin/updateUser",
   async ({ id, name, email, role }) => {
     const response = await axios.put(
-      `${API_URL}/api/admin/users/${id}`,
+      `${API_BASE_URL}/api/admin/users/${id}`,
       { name, email, role },
       {
         headers: {
@@ -65,7 +61,7 @@ export const updateUser = createAsyncThunk(
 //Delete a user
 export const deleteUser = createAsyncThunk("/admin/deleteUser", async (id) => {
   await axios.delete(
-    `import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'/api/admin/users/${id}`,
+    `${API_BASE_URL}/api/admin/users/${id}`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("userToken")}`,

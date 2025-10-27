@@ -1,17 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-// Use localhost for local development, Vercel URL for production
-const API_URL = import.meta.env.DEV 
-  ? 'http://localhost:3000' 
-  : (import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000');
+import { API_BASE_URL } from "../../config/api";
 const USER_TOKEN = `Bearer ${localStorage.getItem("userToken")}`;
 
 //async thunk to fetch admin rproducts
 export const fetchAdminProducts = createAsyncThunk(
   "adminProducts/fetchProducts",
   async () => {
-    const response = await axios.get(`${API_URL}/api/admin/products`, {
+    const response = await axios.get(`${API_BASE_URL}/api/admin/products`, {
       headers: {
         Authorization: USER_TOKEN,
       },
@@ -25,7 +21,7 @@ export const createProduct = createAsyncThunk(
   "adminProducts/createProduct",
   async (productData) => {
     const response = await axios.post(
-      `${API_URL}/api/admin/products`,
+      `${API_BASE_URL}/api/admin/products`,
       productData,
       {
         headers: {
@@ -42,7 +38,7 @@ export const updateProduct = createAsyncThunk(
   "adminProducts/updateProduct",
   async ({ id, productData }) => {
     const response = await axios.put(
-      `${API_URL}/api/admin/produts/${id}`,
+      `${API_BASE_URL}/api/admin/produts/${id}`,
       productData,
       {
         headers: {
@@ -58,7 +54,7 @@ export const updateProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
   "adminProducts/deleteProduct",
   async (id) => {
-    await axios.delete(`${API_URL}/api/products/${id}`, {
+    await axios.delete(`${API_BASE_URL}/api/products/${id}`, {
       headers: {
         Authorization: USER_TOKEN,
       },

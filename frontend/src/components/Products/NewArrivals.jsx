@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 import React, { useEffect, useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -18,9 +19,8 @@ const NewArrivals = () => {
   useEffect(() => {
     const fetchNewArrivals = async () => {
       try {
-        const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
         const response = await axios.get(
-          `${backendUrl}/api/products/new-arrivals`
+          `${API_BASE_URL}/api/products/new-arrivals`
         );
         setNewArrivals(response.data || []);
       } catch (error) {

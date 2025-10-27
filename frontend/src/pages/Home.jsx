@@ -10,6 +10,7 @@ import FeaturesSection from "../components/Products/FeaturesSection.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductsByFilters } from "../redux/slice/productsSlice.js";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Home = () => {
     const fetchBestSeller = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'}/api/products/best-seller`
+          `${API_BASE_URL}/api/products/best-seller`
         );
         setBestSellerProduct(response.data);
       } catch (error) {
@@ -45,7 +46,7 @@ const Home = () => {
       setMensLoading(true);
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'}/api/products?gender=Men&category=Top Wear&limit=8`
+          `${API_BASE_URL}/api/products?gender=Men&category=Top Wear&limit=8`
         );
         setMensProducts(response.data);
       } catch (error) {

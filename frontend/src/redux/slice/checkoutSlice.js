@@ -1,10 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-// Use localhost for local development, Vercel URL for production
-const API_URL = import.meta.env.DEV 
-  ? 'http://localhost:3000' 
-  : (import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000');
+import { API_BASE_URL } from "../../config/api";
 
 //Async thunk to create a checkout session
 export const createCheckout = createAsyncThunk(
@@ -12,7 +8,7 @@ export const createCheckout = createAsyncThunk(
   async (checkoutData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_URL}/api/checkout`,
+        `${API_BASE_URL}/api/checkout`,
         checkoutData,
         {
           headers: {

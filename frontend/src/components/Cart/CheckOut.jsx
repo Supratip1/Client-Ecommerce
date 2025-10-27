@@ -4,11 +4,7 @@ import StripeButton from "./StripeButton";
 import { useDispatch, useSelector } from "react-redux";
 import { createCheckout } from "../../redux/slice/checkoutSlice";
 import axios from "axios";
-
-// Use localhost for local development, Vercel URL for production
-const API_BASE_URL = import.meta.env.DEV 
-  ? 'http://localhost:3000' 
-  : (import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000');
+import { API_BASE_URL } from "../../config/api";
 
 const CheckOut = () => {
   const navigate = useNavigate();

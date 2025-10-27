@@ -1,10 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-// Use localhost for local development, Vercel URL for production
-const API_URL = import.meta.env.DEV 
-  ? 'http://localhost:3000' 
-  : (import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000');
+import { API_BASE_URL } from "../../config/api";
 
 //Helper function to load cart from localStorage
 const localCartFromStorage = () => {
@@ -23,7 +19,7 @@ export const fetchCart = createAsyncThunk(
   async ({ userId, guestId }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${API_URL}/api/cart`,
+        `${API_BASE_URL}/api/cart`,
         {
           params: { userId, guestId },
         }
@@ -51,7 +47,7 @@ export const addToCart = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        `${API_URL}/api/cart`,
+        `${API_BASE_URL}/api/cart`,
         {
           productId,
           quantity,
@@ -78,7 +74,7 @@ export const updateCartItemQuantity = createAsyncThunk(
   ) => {
     try {
       const response = await axios.put(
-        `${API_URL}/api/cart`,
+        `${API_BASE_URL}/api/cart`,
         {
           productId,
           quantity,
@@ -102,7 +98,7 @@ export const removeFromCart = createAsyncThunk(
     try {
       const response = await axios({
         method: "DELETE",
-        url: `${API_URL}/api/cart`,
+        url: `${API_BASE_URL}/api/cart`,
         data: { productId, guestId, userId, size, color },
       });
       return response.data;
@@ -118,7 +114,7 @@ export const mergeCart = createAsyncThunk(
   async ({ guestId, user }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_URL}/api/cart/merge`,
+        `${API_BASE_URL}/api/cart/merge`,
         { guestId, user},
         {
           headers: {

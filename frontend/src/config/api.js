@@ -1,6 +1,7 @@
 // API Configuration
-// Use localhost for local development, Vercel URL for production
-const API_BASE_URL = import.meta.env.DEV 
+// ONLY use localhost when running in development mode (npm run dev)
+// For production builds, use VITE_BACKEND_URL environment variable
+export const API_BASE_URL = import.meta.env.DEV 
   ? 'http://localhost:3000' 
   : (import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000');
 

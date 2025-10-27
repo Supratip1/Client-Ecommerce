@@ -7,6 +7,7 @@ import {
   setFilters,
 } from "../../redux/slice/productsSlice";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,7 +30,7 @@ const SearchBar = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'}/api/products?search=${encodeURIComponent(term)}&limit=5`
+        `${API_BASE_URL}/api/products?search=${encodeURIComponent(term)}&limit=5`
       );
       
       // Extract unique product names and create suggestions

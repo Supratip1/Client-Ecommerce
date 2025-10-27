@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
 import {
   HiOutlineUser,
   HiOutlineShoppingBag,
@@ -93,7 +94,7 @@ const Navbar = () => {
             {user && user.avatar ? (
               <img 
                 src={user.avatar.includes('googleusercontent.com') 
-                  ? `${import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'}/api/proxy/google-avatar/${encodeURIComponent(user.avatar)}`
+                  ? `${API_BASE_URL}/api/proxy/google-avatar/${encodeURIComponent(user.avatar)}`
                   : user.avatar
                 } 
                 alt={user.name} 

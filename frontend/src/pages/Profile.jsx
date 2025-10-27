@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../redux/slice/authSlice";
 import { clearCart } from "../redux/slice/cartSlice";
+import { API_BASE_URL } from "../config/api";
 
 const Profile = () => {
   const {user} = useSelector((state) => state.auth);
@@ -32,7 +33,7 @@ const Profile = () => {
               {user?.avatar ? (
                 <img 
                   src={user.avatar.includes('googleusercontent.com') 
-                    ? `${import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'}/api/proxy/google-avatar/${encodeURIComponent(user.avatar)}`
+                    ? `${API_BASE_URL}/api/proxy/google-avatar/${encodeURIComponent(user.avatar)}`
                     : user.avatar
                   } 
                   alt={user.name} 

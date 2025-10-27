@@ -1,10 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-// Use localhost for local development, Vercel URL for production
-const API_URL = import.meta.env.DEV 
-  ? 'http://localhost:3000' 
-  : (import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000');
+import { API_BASE_URL } from "../../config/api";
 
 //Async Thunk to Fetch Products by Vollection and optimal Filetrs
 export const fetchProductsByFilters = createAsyncThunk(
@@ -38,7 +34,7 @@ export const fetchProductsByFilters = createAsyncThunk(
     if (limit) query.append("limit", limit);
 
     const response = await axios.get(
-      `${API_URL}/api/products?${query.toString()}`
+      `${API_BASE_URL}/api/products?${query.toString()}`
     );
     return response.data;
   }
@@ -49,7 +45,7 @@ export const fetchProductDetails = createAsyncThunk(
   "products/fetchProductDetails",
   async (id) => {
     const response = await axios.get(
-      `${API_URL}/api/products/${id}`
+      `${API_BASE_URL}/api/products/${id}`
     );
     return response.data;
   }
@@ -60,7 +56,7 @@ export const updateProduct = createAsyncThunk(
   "products/updateProduct",
   async ({ id, productData }) => {
     const response = await axios.put(
-      `${API_URL}/api/products/${id}`,
+      `${API_BASE_URL}/api/products/${id}`,
       productData,
       {
         headers: {
@@ -77,7 +73,7 @@ export const fetchSimilarProducts = createAsyncThunk(
   "products/fetchSimilarProducts",
   async ({ id }) => {
     const response = await axios.get(
-      `${API_URL}/api/products/similar/${id}`
+      `${API_BASE_URL}/api/products/similar/${id}`
     );
     return response.data;
   }

@@ -1,4 +1,4 @@
-# Exclude entire backend folder
+# Exclude entire backend folder for frontend deployments
 backend/
 
 # Exclude frontend node_modules and dist

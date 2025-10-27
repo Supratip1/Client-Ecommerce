@@ -1,10 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-// Use localhost for local development, Vercel URL for production
-const API_URL = import.meta.env.DEV 
-  ? 'http://localhost:3000' 
-  : (import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000');
+import { API_BASE_URL } from "../../config/api";
 
 //Fetch all orders (admin only)
 export const fetchAllOrders = createAsyncThunk(
@@ -12,7 +8,7 @@ export const fetchAllOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${API_URL}/api/admin/orders`,
+        `${API_BASE_URL}/api/admin/orders`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
@@ -32,7 +28,7 @@ export const updateOrderStatus = createAsyncThunk(
   async ({ id, status }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `${API_URL}/api/admin/orders/${id}`,
+        `${API_BASE_URL}/api/admin/orders/${id}`,
         { status },
         {
           headers: {
@@ -53,7 +49,7 @@ export const deleteOrder = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       await axios.delete(
-        `${API_URL}/api/admin/orders/${id}`,
+        `${API_BASE_URL}/api/admin/orders/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
