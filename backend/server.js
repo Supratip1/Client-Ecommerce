@@ -114,12 +114,12 @@ app.use("/api/admin/users", adminRoutes);
 app.use("/api/admin/products", productAdminRoutes);
 app.use("/api/admin/orders", adminOrderRoutes)
 
-// Only listen if not in Vercel (serverless) environment
-if (process.env.NODE_ENV !== 'production' || require.main === module) {
+// Only listen if running directly (not as a module/imported)
+if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
   })
 }
 
-// Export for Vercel serverless
+// Export the app for Vercel serverless
 module.exports = app;
