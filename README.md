@@ -1,8 +1,7 @@
  Rabbit
 Rabbit is a modern full-stack e-commerce platform where users can explore, purchase, and manage products online. It features a customer-friendly shopping experience with secure payments and a powerful admin dashboard for managing users, orders, and inventory.
 
-🌐 Live Demo
-https://rabbit-nfmc.vercel.app/
+
 
 🚀 Features
 
