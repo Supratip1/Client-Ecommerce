@@ -10,6 +10,12 @@ backend/node_modules
 frontend/.env
 backend/.env
 
+# Backend images (too large for deployment)
+backend/images/*.jpg
+backend/images/*.jpeg
+backend/images/*.png
+backend/images/*.webp
+
 # Windows
 Thumbs.db
 ehthumbs.db
