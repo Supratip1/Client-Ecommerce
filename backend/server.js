@@ -51,9 +51,9 @@ app.use(passport.session());
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://desistyle-ozo8zaqyz-supratip1s-projects.vercel.app',
-  'https://desistyle.vercel.app'
-];
+  'https://client-ecommerce-drab.vercel.app',
+  process.env.FRONTEND_URL
+].filter(Boolean); // Remove undefined values
 
 app.use(cors({
   origin: function (origin, callback) {

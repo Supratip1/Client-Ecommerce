@@ -1,5 +1,10 @@
-backend/node_modules
-backend/images/*
+# Exclude entire backend folder
+backend/
+
+# Exclude frontend node_modules and dist
 frontend/node_modules
 frontend/dist/*
 
+# Ignore git files
+.git
+.gitignore
