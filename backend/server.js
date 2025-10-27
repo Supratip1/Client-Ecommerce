@@ -51,7 +51,6 @@ app.use(passport.session());
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://client-ecommerce-drab.vercel.app',
   process.env.FRONTEND_URL
 ].filter(Boolean); // Remove undefined values
 
