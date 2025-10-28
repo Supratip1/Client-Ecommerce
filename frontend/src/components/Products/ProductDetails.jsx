@@ -10,6 +10,7 @@ import { fetchReviews, createReview } from "../../redux/slice/reviewSlice";
 import { addToCart } from "../../redux/slice/cartSlice";
 import { addToWishlist, removeFromWishlist, fetchWishlist } from "../../redux/slice/wishlistSlice";
 import LazyImage from "../Common/LazyImage";
+import ProductCard from "./ProductCard";
 import {
   FaStar,
   FaHeart,
@@ -758,47 +759,18 @@ const ProductDetails = ({ productId }) => {
           {similarProducts && similarProducts.length > 0 && (
             <div className="mt-12">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">You may also like</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Desktop grid */}
+              <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {similarProducts.map((product) => (
-                  <div
-                    key={product._id}
-                    onClick={() => navigate(`/product/${product._id}`)}
-                    className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group"
-                  >
-                    <div className="aspect-square overflow-hidden">
-                      <LazyImage
-                        src={product.images[0]?.url || "/placeholder.jpg"}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-medium text-gray-900 mb-2 line-clamp-2">
-                        {product.name}
-                      </h3>
-                      <div className="flex items-center space-x-2 mb-2">
-                        {renderStars(Math.round(product.rating || 0))}
-                        <span className="text-sm text-gray-600">
-                          ({product.numReviews || 0})
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        {product.discountPrice ? (
-                          <>
-                            <span className="font-semibold text-gray-900">
-                              ${product.discountPrice}
-                            </span>
-                            <span className="text-sm text-gray-500 line-through">
-                              ${product.price}
-                            </span>
-                          </>
-                        ) : (
-                          <span className="font-semibold text-gray-900">
-                            ${product.price}
-                          </span>
-                        )}
-                      </div>
-                    </div>
+                  <ProductCard key={product._id} product={product} />
+                ))}
+              </div>
+
+              {/* Mobile swipe carousel */}
+              <div className="md:hidden overflow-x-auto flex space-x-4 -mx-4 px-4 scrollbar-hide">
+                {similarProducts.map((product) => (
+                  <div key={product._id} className="min-w-[100%] sm:min-w-[50%] lg:min-w-[30%]">
+                    <ProductCard product={product} />
                   </div>
                 ))}
               </div>
