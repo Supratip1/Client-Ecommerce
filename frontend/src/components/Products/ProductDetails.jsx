@@ -10,6 +10,7 @@ import { fetchReviews, createReview } from "../../redux/slice/reviewSlice";
 import { addToCart } from "../../redux/slice/cartSlice";
 import { addToWishlist, removeFromWishlist, fetchWishlist } from "../../redux/slice/wishlistSlice";
 import LazyImage from "../Common/LazyImage";
+import ImageMagnifier from "../Common/ImageMagnifier";
 import ProductCard from "./ProductCard";
 import {
   FaStar,
@@ -270,11 +271,7 @@ const ProductDetails = ({ productId }) => {
             <div className="space-y-4">
               {/* Main Image */}
               <div className="aspect-square bg-white rounded-lg overflow-hidden shadow-lg">
-                <LazyImage
-                  src={mainImage}
-                  alt={selectedProduct.name}
-                  className="w-full h-full object-cover"
-                />
+                <ImageMagnifier src={mainImage} alt={selectedProduct.name} className="w-full h-full" zoom={2.2} rounded="rounded-lg" />
               </div>
 
               {/* Thumbnail Images */}
