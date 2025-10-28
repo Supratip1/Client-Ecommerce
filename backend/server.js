@@ -33,6 +33,11 @@ const adminOrderRoutes = require("./routes/adminOrderRoutes");
 const stripeRoutes = require("./routes/stripeRoutes");
 const authRoutes = require("./routes/authRoutes");
 const imageProxyRoutes = require("./routes/imageProxy");
+const reviewRoutes = require("./routes/reviewRoutes");
+const couponRoutes = require("./routes/couponRoutes");
+const wishlistRoutes = require("./routes/wishlistRoutes");
+const analyticsRoutes = require("./routes/analyticsRoutes");
+const bulkOperationsRoutes = require("./routes/bulkOperationsRoutes");
 
 const app = express();
 app.use(express.json());
@@ -108,11 +113,16 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api", subscribeRoute);
 app.use("/api/stripe", stripeRoutes);
 app.use("/api/proxy", imageProxyRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/coupons", couponRoutes);
+app.use("/api/wishlist", wishlistRoutes);
 
 //Admin
 app.use("/api/admin/users", adminRoutes);
 app.use("/api/admin/products", productAdminRoutes);
-app.use("/api/admin/orders", adminOrderRoutes)
+app.use("/api/admin/orders", adminOrderRoutes);
+app.use("/api/admin/analytics", analyticsRoutes);
+app.use("/api/admin/bulk", bulkOperationsRoutes);
 
 // Only listen if running directly (not as a module/imported)
 if (require.main === module) {

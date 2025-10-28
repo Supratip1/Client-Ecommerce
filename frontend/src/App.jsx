@@ -12,13 +12,18 @@ import ProductDetails from "./components/Products/ProductDetails";
 import CheckOut from "./components/Cart/CheckOut";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
-import MyOrdersPage from "./pages/MyOrdersPage";
+import WishlistPage from "./pages/WishlistPage";
 import AdminLayout from "./components/Admin/AdminLayout";
 import AdminHomePage from "./pages/AdminHomePage";
 import UserManagement from "./components/Admin/UserManagement";
 import ProductManagement from "./components/Admin/ProductManagement";
 import EditProductPage from "./components/Admin/EditProductPage";
 import OrderManagement from "./components/Admin/OrderManagement";
+import AddProductPage from "./pages/AddProductPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import CustomerManagementPage from "./pages/CustomerManagementPage";
+import CouponManagementPage from "./pages/CouponManagementPage";
+import BulkOperationsPage from "./pages/BulkOperationsPage";
 
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -49,7 +54,7 @@ const App = () => {
               element={<OrderConfirmationPage />}
             />
             <Route path="order/:id" element={<OrderDetailsPage />} />
-            <Route path="my-orders" element={<MyOrdersPage />} />
+                <Route path="wishlist" element={<WishlistPage />} />
           </Route>
           <Route
             path="/admin"
@@ -60,10 +65,15 @@ const App = () => {
             }
           >
             <Route index element={<AdminHomePage />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
+            <Route path="customers" element={<CustomerManagementPage />} />
             <Route path="users" element={<UserManagement />} />
             <Route path="products" element={<ProductManagement />} />
+            <Route path="products/add" element={<AddProductPage />} />
             <Route path="products/:id/edit" element={<EditProductPage />} />
             <Route path="orders" element={<OrderManagement />} />
+            <Route path="coupons" element={<CouponManagementPage />} />
+            <Route path="bulk-operations" element={<BulkOperationsPage />} />
           </Route>
           </Routes>
         </BrowserRouter>

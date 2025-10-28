@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_BASE_URL } from "../../config/api";
-const USER_TOKEN = `Bearer ${localStorage.getItem("userToken")}`;
+
+// Get token dynamically
+const getAuthToken = () => {
+  return `Bearer ${localStorage.getItem("token") || localStorage.getItem("userToken")}`;
+};
 
 //async thunk to fetch admin rproducts
 export const fetchAdminProducts = createAsyncThunk(
@@ -9,7 +13,7 @@ export const fetchAdminProducts = createAsyncThunk(
   async () => {
     const response = await axios.get(`${API_BASE_URL}/api/admin/products`, {
       headers: {
-        Authorization: USER_TOKEN,
+        Authorization: getAuthToken(),
       },
     });
     return response.data;
@@ -25,7 +29,7 @@ export const createProduct = createAsyncThunk(
       productData,
       {
         headers: {
-          Authorization: USER_TOKEN,
+          Authorization: getAuthToken(),
         },
       }
     );
@@ -38,11 +42,11 @@ export const updateProduct = createAsyncThunk(
   "adminProducts/updateProduct",
   async ({ id, productData }) => {
     const response = await axios.put(
-      `${API_BASE_URL}/api/admin/produts/${id}`,
+      `${API_BASE_URL}/api/admin/products/${id}`,
       productData,
       {
         headers: {
-          Authorization: USER_TOKEN,
+          Authorization: getAuthToken(),
         },
       }
     );
@@ -56,7 +60,7 @@ export const deleteProduct = createAsyncThunk(
   async (id) => {
     await axios.delete(`${API_BASE_URL}/api/products/${id}`, {
       headers: {
-        Authorization: USER_TOKEN,
+        Authorization: getAuthToken(),
       },
     });
     return id;

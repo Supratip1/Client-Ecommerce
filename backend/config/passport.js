@@ -8,10 +8,21 @@ console.log('BACKEND_URL:', process.env.BACKEND_URL || 'NOT SET');
 console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID ? 'EXISTS' : '❌ MISSING');
 console.log('GOOGLE_CLIENT_SECRET:', process.env.GOOGLE_CLIENT_SECRET ? 'EXISTS' : '❌ MISSING');
 
-// Build callback URL
-const callbackURL = process.env.BACKEND_URL 
-  ? `${process.env.BACKEND_URL}/api/auth/google/callback` 
-  : "http://localhost:3000/api/auth/google/callback";
+// Build callback URL - try multiple sources
+let callbackURL;
+
+// Check for explicit BACKEND_URL
+if (process.env.BACKEND_URL) {
+  callbackURL = `${process.env.BACKEND_URL}/api/auth/google/callback`;
+} 
+// In Vercel, use the deployment URL from VERCEL_URL
+else if (process.env.VERCEL_URL) {
+  callbackURL = `https://${process.env.VERCEL_URL}/api/auth/google/callback`;
+}
+// Fallback to localhost for local development
+else {
+  callbackURL = "http://localhost:3000/api/auth/google/callback";
+}
 
 console.log('✅ Using callbackURL:', callbackURL);
 console.log('==============================');

@@ -2,6 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_BASE_URL } from "../../config/api";
 
+// Get token dynamically
+const getAuthToken = () => {
+  return `Bearer ${localStorage.getItem("token") || localStorage.getItem("userToken")}`;
+};
+
 //Fetch all orders (admin only)
 export const fetchAllOrders = createAsyncThunk(
   "adminOrders/fetchAllOrders",
@@ -11,7 +16,7 @@ export const fetchAllOrders = createAsyncThunk(
         `${API_BASE_URL}/api/admin/orders`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+            Authorization: getAuthToken(),
           },
         }
       );
@@ -32,7 +37,7 @@ export const updateOrderStatus = createAsyncThunk(
         { status },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+            Authorization: getAuthToken(),
           },
         }
       );
@@ -52,7 +57,7 @@ export const deleteOrder = createAsyncThunk(
         `${API_BASE_URL}/api/admin/orders/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+            Authorization: getAuthToken(),
           },
         }
       );

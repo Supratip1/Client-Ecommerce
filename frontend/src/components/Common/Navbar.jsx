@@ -5,6 +5,7 @@ import {
   HiOutlineUser,
   HiOutlineShoppingBag,
   HiBars3BottomRight,
+  HiOutlineHeart,
 } from "react-icons/hi2";
 import SearchBar from "./SearchBar";
 import CardDrawer from "../Layout/CartDrawer";
@@ -16,7 +17,8 @@ const Navbar = () => {
   const [navDrawerOpen, setNavDrawerOpen] = useState(false);
   const [showOrderSuccess, setShowOrderSuccess] = useState(false);
   const { cart } = useSelector((state) => state.cart);
-  const {user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const { products: wishlistProducts } = useSelector((state) => state.wishlist);
   const location = useLocation();
 
   const cartItemCount =
@@ -81,14 +83,17 @@ const Navbar = () => {
         </div>
         {/* right - icons */}
         <div className="flex items-center space-x-4">
-          {user && user.role === "admin" && (
-            <Link
-              to="/admin"
-              className="block bg-black px-2 py-1 text-center rounded text-sm text-white"
-            >
-              Admin
-            </Link>
-          )}
+          {/* Admin button hidden on mobile; available inside hamburger */}
+          <div className="hidden md:block">
+            {user && user.role === "admin" && (
+              <Link
+                to="/admin"
+                className="block bg-black px-4 py-2 rounded text-sm text-white hover:bg-gray-800 transition-colors"
+              >
+                Admin
+              </Link>
+            )}
+          </div>
 
           <Link to="/profile" className="hover:text-black">
             {user && user.avatar ? (
@@ -137,6 +142,19 @@ const Navbar = () => {
               </>
             )}
           </button>
+          
+          {/* Wishlist Icon */}
+          <Link
+            to="/wishlist"
+            className="relative hover:text-black transition-all duration-300"
+          >
+            <HiOutlineHeart className="h-6 w-6 text-gray-700" />
+            {wishlistProducts.length > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {wishlistProducts.length}
+              </span>
+            )}
+          </Link>
           {/* serach */}
           <div className="overflow-hidden">
             <SearchBar />
@@ -191,6 +209,16 @@ const Navbar = () => {
             >
               Bottom Wear
             </Link>
+            {/* Admin within hamburger for mobile */}
+            {user && user.role === "admin" && (
+              <Link
+                to="/admin"
+                onClick={toggleNavDrawer}
+                className="block text-white bg-black px-4 py-2 rounded"
+              >
+                Admin Dashboard
+              </Link>
+            )}
           </nav>
         </div>
       </div>
